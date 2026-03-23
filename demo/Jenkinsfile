@@ -4,20 +4,22 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Pulls the code from your GitHub repository [cite: 7, 10]
+                
                 checkout scm
             }
         }
         stage('Build Stage') {
             steps {
-                // This command builds the 'fat jar' artifact required by the midterm 
-                // Note: Use './mvnw' for Maven or './gradlew' for Gradle
-                sh './mvnw clean package'
+		dir('demo') {
+                
+                     	sh 'chmod +x mvnw'
+			sh './mvnw clean package'
+		}
             }
         }
         stage('Archive Artifacts') {
             steps {
-                // This makes the resulting JAR file visible in the Jenkins UI
+                
                 archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
             }
         }
